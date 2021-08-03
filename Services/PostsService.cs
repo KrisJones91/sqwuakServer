@@ -19,5 +19,15 @@ namespace sqwuakServer.Services
         {
             throw new NotImplementedException();
         }
+
+        internal object Edit(Post updated, string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal object Delete(int id1, string id2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
