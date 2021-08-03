@@ -1,33 +1,58 @@
 using System;
+using System.Collections.Generic;
 using sqwuakServer.Models;
+using sqwuakServer.Repositories;
 
 namespace sqwuakServer.Services
 {
     public class PostsService
     {
-        internal object GetAll()
+        private readonly PostsRepository _prepo;
+        private readonly ArchivesRepository _archrepo;
+        public PostsService(PostsRepository prepo, ArchivesRepository archrepo)
         {
-            throw new NotImplementedException();
+            _prepo = prepo;
+            _archrepo = archrepo;
+        }
+        public IEnumerable<Post> GetAll()
+        {
+            IEnumerable<Post> posts = _prepo.GetAll();
+            return posts;
         }
 
-        internal object GetById(int id)
+        internal Post GetById(int id)
         {
-            throw new NotImplementedException();
+            Post post = _prepo.GetById(id);
+            if (post == null)
+            {
+                throw new Exception("Invalid Id");
+            }
+            return post;
         }
 
-        internal Post Create(Post newPost)
+        public Post Create(Post newPost)
         {
-            throw new NotImplementedException();
+            newPost.Id = _prepo.Create(newPost);
+            return newPost;
         }
 
-        internal object Edit(Post updated, string id)
+        internal Post Edit(Post updated, string id)
         {
-            throw new NotImplementedException();
+            Post original = GetById(updated.Id);
+            if (original.CreatorId != id) { throw new Exception("Access Denied: You can only edit content you have created."); }
+            updated.Title = updated.Title == null ? original.Title : updated.Title;
+            updated.Description = updated.Description == null ? original.Description : updated.Description;
+            updated.Img = updated.Img == null ? original.Img : updated.Img;
+            return _prepo.Edit(updated);
         }
 
-        internal object Delete(int id1, string id2)
+        internal string Delete(int id, string userId)
         {
-            throw new NotImplementedException();
+            Post original = _prepo.GetById(id);
+            if (original == null) { throw new Exception("Invalid ID"); }
+            if (original.CreatorId != userId) { throw new Exception("Access Denied: You can only delete content you have created."); }
+            _prepo.Remove(id);
+            return "Successfully Deleted";
         }
     }
 }

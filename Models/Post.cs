@@ -10,6 +10,7 @@ namespace sqwuakServer.Models
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
+        public string Img { get; set; }
         public int Views { get; set; }
         public int Shares { get; set; }
         public int Saves { get; set; }
