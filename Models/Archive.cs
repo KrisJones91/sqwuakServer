@@ -8,4 +8,9 @@ namespace sqwuakServer.Models
         public bool isPrivate { get; set; }
         public Account Creator { get; set; }
     }
+
+    public class PostArchiveModel : Posts
+    {
+        public int PostArchiveId { get; set; }
+    }
 }
