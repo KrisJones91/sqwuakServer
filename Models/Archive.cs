@@ -9,7 +9,7 @@ namespace sqwuakServer.Models
         public Account Creator { get; set; }
     }
 
-    public class PostArchiveModel : Posts
+    public class PostArchiveModel : Post
     {
         public int PostArchiveId { get; set; }
     }

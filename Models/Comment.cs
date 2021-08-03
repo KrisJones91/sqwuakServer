@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace sqwuakServer.Models
 {
-    public class Comments
+    public class Comment
     {
         public int Id { get; set; }
         public string CreatorId { get; set; }
