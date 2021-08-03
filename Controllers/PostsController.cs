@@ -62,5 +62,37 @@ namespace sqwuakServer.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<ActionResult<Post>> Edit([FromBody] Post updated, int id)
+        {
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                updated.Id = id;
+                updated.Creator = userInfo;
+                return Ok(_ps.Edit(updated, userInfo.Id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<ActionResult<string>> Delete(int id)
+        {
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                return Ok(_ps.Delete(id, userInfo.Id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
