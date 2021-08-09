@@ -14,9 +14,16 @@ namespace sqwuakServer.Controllers
     public class AccountController : ControllerBase
     {
         private readonly AccountService _accountService;
-        public AccountController(AccountService accountService)
+        private readonly ProfilesService _profilesService;
+        private readonly PostsService _postsService;
+        private readonly ArchivesService _archivesService;
+
+        public AccountController(AccountService accountService, ProfilesService profilesService, PostsService postsService, ArchivesService archivesService)
         {
             _accountService = accountService;
+            _profilesService = profilesService;
+            _postsService = postsService;
+            _archivesService = archivesService;
         }
 
         [HttpGet]
