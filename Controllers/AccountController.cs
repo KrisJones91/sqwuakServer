@@ -40,6 +40,22 @@ namespace sqwuakServer.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("posts")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByAccount()
+        {
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                IEnumerable<Post> posts = _postsService.GetPostsByAccountId(userInfo.Id);
+                return Ok(posts);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 
 
