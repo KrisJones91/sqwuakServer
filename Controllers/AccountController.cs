@@ -56,6 +56,22 @@ namespace sqwuakServer.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("archives")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Archive>>> GetArchivesByAccountId()
+        {
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                IEnumerable<Archive> archives = _archivesService.GetArchivesByAccountId(userInfo.Id);
+                return Ok(archives);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 
 

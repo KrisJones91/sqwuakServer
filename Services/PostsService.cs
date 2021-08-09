@@ -55,9 +55,10 @@ namespace sqwuakServer.Services
             return "Successfully Deleted";
         }
 
+        //Get ACTIVE users posts
         internal IEnumerable<Post> GetPostsByAccountId(string id)
         {
-            throw new NotImplementedException();
+            return _prepo.GetByOwnerId(id);
         }
     }
 }
