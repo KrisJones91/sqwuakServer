@@ -54,5 +54,10 @@ namespace sqwuakServer.Services
             _prepo.Remove(id);
             return "Successfully Deleted";
         }
+
+        internal IEnumerable<Post> GetPostsByAccountId(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
