@@ -26,14 +26,24 @@ namespace sqwuakServer.Services
         }
         internal Archive Create(Archive newArchive)
         {
-            throw new NotImplementedException();
+            newArchive.Id = _arepo.Create(newArchive);
+            return newArchive;
         }
 
+        internal Archive Edit(Archive updated, string id)
+        {
+            Archive original = _arepo.GetArchivesById(updated.Id);
+            if (original.CreatorId != id) { throw new Exception("Access Denied: You cannot edit content that is not yours."); }
+            updated.Name = updated.Name == null ? original.Name : updated.Name;
+            updated.isPrivate = updated.isPrivate == false ? original.isPrivate : updated.isPrivate;
+            return _arepo.Edit(updated);
+        }
 
         internal IEnumerable<Archive> GetArchivesByAccountId(string id)
         {
             return _arepo.GetArchivesByOwnerId(id);
         }
+
 
     }
 }

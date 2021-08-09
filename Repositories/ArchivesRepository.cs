@@ -10,6 +10,14 @@ namespace sqwuakServer.Repositories
         {
             throw new NotImplementedException();
         }
+        internal int Create(Archive newArchive)
+        {
+            throw new NotImplementedException();
+        }
+        internal Archive Edit(Archive updated)
+        {
+            throw new NotImplementedException();
+        }
         //From ACCOUNT Controller
         internal IEnumerable<Archive> GetArchivesByOwnerId(string id)
         {

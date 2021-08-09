@@ -36,7 +36,6 @@ namespace sqwuakServer.Controllers
 
         [HttpPost]
         [Authorize]
-
         public async Task<ActionResult<Archive>> Create([FromBody] Archive newArchive)
         {
             try
@@ -53,6 +52,22 @@ namespace sqwuakServer.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<ActionResult<Archive>> Edit([FromBody] Archive updated, int id)
+        {
+            try
+            {
+                Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+                updated.Id = id;
+                updated.Creator = userInfo;
+                return Ok(_as.Edit(updated, userInfo.Id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
     }
 }
