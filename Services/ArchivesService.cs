@@ -49,6 +49,7 @@ namespace sqwuakServer.Services
             return "Successfully Deleted";
         }
 
+        //From AccountController >> (string id)
         internal IEnumerable<Archive> GetArchivesByAccountId(string id)
         {
             return _arepo.GetArchivesByOwnerId(id);
