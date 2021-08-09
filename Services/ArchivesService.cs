@@ -14,7 +14,6 @@ namespace sqwuakServer.Services
             _arepo = arepo;
         }
 
-
         internal object GetById(int id, string userId)
         {
             Archive archive = _arepo.GetArchivesById(id);
@@ -39,11 +38,21 @@ namespace sqwuakServer.Services
             return _arepo.Edit(updated);
         }
 
+
+        internal object Delete(int id, string userId)
+        {
+            // might need to revise GetArchivesById to GetById
+            Archive original = _arepo.GetArchivesById(id);
+            if (original == null) { throw new Exception("Invalid ID"); }
+            if (original.CreatorId != userId) { throw new Exception("Access Denied: This is not your content."); }
+            _arepo.Remove(id);
+            return "Successfully Deleted";
+        }
+
         internal IEnumerable<Archive> GetArchivesByAccountId(string id)
         {
             return _arepo.GetArchivesByOwnerId(id);
         }
-
 
     }
 }
