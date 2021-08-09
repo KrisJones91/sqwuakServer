@@ -61,5 +61,10 @@ namespace sqwuakServer.Repositories
         {
             throw new NotImplementedException();
         }
+
+        internal IEnumerable<Post> GetByOwnerId(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
