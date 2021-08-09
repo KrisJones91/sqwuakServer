@@ -15,9 +15,14 @@ namespace sqwuakServer.Services
         }
 
 
-        internal object GetById(int id1, string id2)
+        internal object GetById(int id, string userId)
         {
-            throw new NotImplementedException();
+            Archive archive = _arepo.GetArchivesById(id);
+            if (archive.isPrivate == true && archive.CreatorId != userId || archive == null)
+            {
+                throw new Exception("Invalid Id -or- ARCHIVE is Private.");
+            }
+            return archive;
         }
 
 
