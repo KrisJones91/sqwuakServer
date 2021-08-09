@@ -24,13 +24,16 @@ namespace sqwuakServer.Services
             }
             return archive;
         }
+        internal Archive Create(Archive newArchive)
+        {
+            throw new NotImplementedException();
+        }
 
 
         internal IEnumerable<Archive> GetArchivesByAccountId(string id)
         {
             return _arepo.GetArchivesByOwnerId(id);
         }
-
 
     }
 }
