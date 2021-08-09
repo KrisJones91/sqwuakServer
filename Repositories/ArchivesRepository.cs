@@ -24,8 +24,6 @@ namespace sqwuakServer.Repositories
             throw new NotImplementedException();
         }
 
-
-
         internal void Remove(int id)
         {
             throw new NotImplementedException();
