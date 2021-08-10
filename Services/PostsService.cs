@@ -46,6 +46,7 @@ namespace sqwuakServer.Services
             return _prepo.Edit(updated);
         }
 
+
         internal string Delete(int id, string userId)
         {
             Post original = _prepo.GetById(id);
@@ -59,6 +60,10 @@ namespace sqwuakServer.Services
         internal IEnumerable<Post> GetPostsByAccountId(string id)
         {
             return _prepo.GetByOwnerId(id);
+        }
+        internal IEnumerable<Post> GetByProfileId(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
