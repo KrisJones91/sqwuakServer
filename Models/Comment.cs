@@ -10,5 +10,6 @@ namespace sqwuakServer.Models
         public string Body { get; set; }
         public int Likes { get; set; }
         public int PostId { get; set; }
+        public Account Creator { get; set; }
     }
 }

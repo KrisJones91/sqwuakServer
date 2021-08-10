@@ -45,9 +45,21 @@ namespace sqwuakServer.Repositories
         }
 
 
-        internal object GetArchivesByProfileId(string id)
+        internal IEnumerable<Archive> GetArchivesByProfileId(string id)
         {
-            throw new NotImplementedException();
+            string sql = @"
+             SELECT
+             archs.*,
+             pro.*
+             FROM archives archs
+             JOIN profiles pro ON archs.creatorId = pro.id
+             ";
+            return _db.Query<Archive, Profile, Archive>(sql, (archives, profile) =>
+            {
+                archives.Creator = profile;
+                return archives;
+            }
+                , new { id }, splitOn: "id");
         }
     }
 }
