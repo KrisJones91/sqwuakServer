@@ -20,12 +20,13 @@ namespace sqwuakServer.Services
 
         internal Comment Create(Comment newComment)
         {
-            throw new NotImplementedException();
+            newComment.Id = _crepo.Create(newComment);
+            return newComment;
         }
 
         internal object Edit(Comment updated, string id)
         {
-            throw new NotImplementedException();
+            Comment original = GetCommentsById(updated.Id)
         }
 
         internal object Delete(int id1, string id2)

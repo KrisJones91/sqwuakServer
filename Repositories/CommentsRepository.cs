@@ -10,5 +10,10 @@ namespace sqwuakServer.Repositories
         {
             throw new NotImplementedException();
         }
+
+        internal int Create(Comment newComment)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
