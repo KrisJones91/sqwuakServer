@@ -17,6 +17,15 @@ namespace sqwuakServer.Services
             IEnumerable<Comment> comments = _crepo.GetAllComments();
             return comments;
         }
+        internal Comment GetById(int id)
+        {
+            Comment comment = _crepo.GetById(id);
+            if (comment == null)
+            {
+                throw new Exception("Invalid Id");
+            }
+            return comment;
+        }
 
         internal Comment Create(Comment newComment)
         {
@@ -26,12 +35,14 @@ namespace sqwuakServer.Services
 
         internal object Edit(Comment updated, string id)
         {
-            Comment original = GetCommentsById(updated.Id)
+            Comment original = GetCommentsById(updated.Id);
+
         }
 
         internal object Delete(int id1, string id2)
         {
             throw new NotImplementedException();
         }
+
     }
 }
