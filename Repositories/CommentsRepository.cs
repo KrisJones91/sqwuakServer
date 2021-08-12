@@ -20,5 +20,15 @@ namespace sqwuakServer.Repositories
         {
             throw new NotImplementedException();
         }
+
+        internal object Edit(Comment updated)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

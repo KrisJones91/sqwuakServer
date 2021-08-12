@@ -37,7 +37,7 @@ namespace sqwuakServer.Controllers
         {
             try
             {
-                return Ok(_cs.GetById(id));
+                return Ok(_cs.GetCommentsById(id));
             }
             catch (Exception e)
             {
