@@ -41,7 +41,7 @@ namespace sqwuakServer.Services
             return _crepo.Edit(updated);
         }
 
-        internal string Delete(int id, string userId, int PostId)
+        internal string Delete(int id, string userId)
         {
             Comment comment = _crepo.GetById(id);
             if (comment == null) { throw new Exception("Invalid ID"); }
