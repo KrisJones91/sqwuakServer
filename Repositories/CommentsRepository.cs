@@ -15,5 +15,10 @@ namespace sqwuakServer.Repositories
         {
             throw new NotImplementedException();
         }
+
+        internal Comment GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

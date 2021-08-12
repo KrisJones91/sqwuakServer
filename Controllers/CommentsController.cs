@@ -32,6 +32,19 @@ namespace sqwuakServer.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<Comment> GetResult(int id)
+        {
+            try
+            {
+                return Ok(_cs.GetById(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<ActionResult<Comment>> Create([FromBody] Comment newComment)
