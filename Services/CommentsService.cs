@@ -1,13 +1,21 @@
 using System;
+using System.Collections.Generic;
 using sqwuakServer.Models;
+using sqwuakServer.Repositories;
 
 namespace sqwuakServer.Services
 {
     public class CommentsService
     {
-        internal object GetComments()
+        private readonly CommentsRepository _crepo;
+        public CommentsService(CommentsRepository crepo)
         {
-            throw new NotImplementedException();
+            _crepo = crepo;
+        }
+        public IEnumerable<Comment> GetComments()
+        {
+            IEnumerable<Comment> comments = _crepo.GetAllComments();
+            return comments;
         }
 
         internal Comment Create(Comment newComment)
