@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using sqwuakServer.Models;
 
@@ -16,12 +17,30 @@ namespace sqwuakServer.Repositories
 
         internal Archive GetArchivesById(int id)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            SELECT
+            archs.*,
+            prof.*
+            FROM archives archs
+            JOIN profiles prof ON archs.creatorId = prof.id
+            WHERE archs.id = @Id;";
+            return _db.Query<Archive, Profile, Archive>(sql, (archive, profile) =>
+            {
+                archive.Creator = profile;
+                return archive;
+            }, new { id }, splitOn: "id").FirstOrDefault();
         }
         internal int Create(Archive newArchive)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            INSERT INTO Archives
+            (Name, isPrivate, creatorId)
+            VALUES
+            (@Name, @IsPrivate, @CreatorId);
+            SELECT LAST_INSERT_ID()";
+            return _db.ExecuteScalar<int>(sql, newArchive);
         }
+
         internal Archive Edit(Archive updated)
         {
             throw new NotImplementedException();

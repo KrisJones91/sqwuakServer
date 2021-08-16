@@ -17,7 +17,7 @@ namespace sqwuakServer.Models
         public Account Creator { get; set; }
     }
 
-    public class postArchModel : Post
+    public class PostArchModel : Post
     {
         public int ArchPostId { get; set; }
     }
