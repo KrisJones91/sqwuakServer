@@ -23,7 +23,7 @@ namespace sqwuakServer.Repositories
             prof.*
             FROM archives archs
             JOIN profiles prof ON archs.creatorId = prof.id
-            WHERE archs.id = @Id;";
+            WHERE archs.id = @id;";
             return _db.Query<Archive, Profile, Archive>(sql, (archive, profile) =>
             {
                 archive.Creator = profile;
