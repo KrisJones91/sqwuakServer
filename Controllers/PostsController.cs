@@ -51,7 +51,7 @@ namespace sqwuakServer.Controllers
         {
             try
             {
-                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
                 newPost.CreatorId = userInfo.Id;
                 Post created = _ps.Create(newPost);
                 created.Creator = userInfo;
@@ -69,7 +69,7 @@ namespace sqwuakServer.Controllers
         {
             try
             {
-                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
                 updated.Id = id;
                 updated.Creator = userInfo;
                 return Ok(_ps.Edit(updated, userInfo.Id));
@@ -86,7 +86,7 @@ namespace sqwuakServer.Controllers
         {
             try
             {
-                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
                 return Ok(_ps.Delete(id, userInfo.Id));
             }
             catch (Exception e)
