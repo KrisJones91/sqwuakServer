@@ -42,7 +42,7 @@ namespace sqwuakServer.Controllers
         {
             try
             {
-                IEnumerable<Post> posts = _ps.GetByProfileId(id);
+                IEnumerable<Post> posts = _ps.GetPostsByProfileId(id);
                 return Ok(posts);
             }
             catch (Exception e)

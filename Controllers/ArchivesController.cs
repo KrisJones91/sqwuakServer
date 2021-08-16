@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using Microsoft.AspNetCore.Authorization;
@@ -85,5 +86,18 @@ namespace sqwuakServer.Controllers
             }
         }
 
+        //Many-to-many
+        [HttpGet("{id}/posts")]
+        public ActionResult<IEnumerable<Archive>> GetPosts(int id)
+        {
+            try
+            {
+                return Ok(_ps.GetPostsByArchiveId(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

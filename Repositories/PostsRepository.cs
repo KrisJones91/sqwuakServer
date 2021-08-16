@@ -92,5 +92,41 @@ namespace sqwuakServer.Repositories
             }
             , new { id }, splitOn: "id");
         }
+
+        internal IEnumerable<Post> GetPostsProfileById(string id)
+        {
+            string sql = @"
+             SELECT
+             post.*,
+             prof.*
+             FROM posts post
+             JOIN profiles prof ON post.creatorId = prof.id
+             ";
+            return _db.Query<Post, Profile, Post>(sql, (posts, profile) =>
+            {
+                posts.Creator = profile;
+                return posts;
+            }
+              , new { id }, splitOn: "id");
+        }
+
+        internal IEnumerable<ArchPostModel> GetPostsByArchivesId(int id)
+        {
+            string sql = @"
+            SELECT
+            post.*,
+            ap.id as ArchPostId,
+            prof.*
+            FROM archposts ap
+            JOIN posts post ON post.id = ap.postId
+            JOIN profiles prof ON post.creatorId = prof.id
+            WHERE archiveId = @id
+            ";
+            return _db.Query<ArchPostModel, Profile, ArchPostModel>(sql, (post, profile) =>
+            {
+                post.Creator = profile;
+                return post;
+            }, new { id }, splitOn: "id");
+        }
     }
 }

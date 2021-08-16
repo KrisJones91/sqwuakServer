@@ -61,9 +61,23 @@ namespace sqwuakServer.Services
         {
             return _prepo.GetByOwnerId(id);
         }
-        internal IEnumerable<Post> GetByProfileId(string id)
+
+        //Get everyone's profile
+        internal IEnumerable<Post> GetPostsByProfileId(string id)
         {
-            throw new NotImplementedException();
+            return _prepo.GetPostsProfileById(id);
+        }
+
+        //get posts inside archives
+        internal IEnumerable<ArchPostModel> GetPostsByArchiveId(int id)
+        {
+            Archive archive = _archrepo.GetArchivesById(id);
+            if (archive == null)
+            {
+                throw new Exception("Invalid Id, or Archive is Private.");
+            }
+            return _prepo.GetPostsByArchivesId(id);
+
         }
     }
 }
