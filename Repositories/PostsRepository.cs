@@ -53,14 +53,22 @@ namespace sqwuakServer.Repositories
             INSERT INTO Posts
             (title, description, img, views, shares, saves, creatorId)
             VALUES
-            (@Name, @Description, @Img, @Views, @Shares, @Saves, @CreatorId);
+            (@Title, @Description, @Img, @Views, @Shares, @Saves, @CreatorId);
             SELECT LAST_INSERT_ID()";
             return _db.ExecuteScalar<int>(sql, newPost);
         }
 
         internal Post Edit(Post updated)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            UPDATE Posts
+            SET
+            title = @Title,
+            description = @Description,
+            img = @IMG
+            WHERE id = @Id;";
+            _db.Execute(sql, updated);
+            return updated;
         }
 
         internal void Remove(int id)
