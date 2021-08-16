@@ -43,11 +43,19 @@ namespace sqwuakServer.Repositories
 
         internal Archive Edit(Archive updated)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            UPDATE Archives
+            SET
+            name = @Name,
+            isPrivate = @IsPrivate
+            WHERE id = @Id;";
+            _db.Execute(sql, updated);
+            return updated;
         }
         internal void Remove(int id)
         {
-            throw new NotImplementedException();
+            string sql = "DELETE FROM archives WHERE id = @Id LIMIT 1";
+            _db.Execute(sql, new { id });
         }
 
         //From ACCOUNT Controller
