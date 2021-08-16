@@ -23,5 +23,15 @@ namespace sqwuakServer.Repositories
             SELECT LAST_INSERT_ID();";
             return _db.ExecuteScalar<int>(sql, newPA);
         }
+
+        internal ArchivePost GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
