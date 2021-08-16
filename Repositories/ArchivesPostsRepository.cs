@@ -26,13 +26,18 @@ namespace sqwuakServer.Repositories
 
         internal ArchivePost GetById(int id)
         {
-            string sql = "SELECT * FROM archiveposts WHERE id = @id;";
+            string sql = "SELECT * FROM archivePosts WHERE id = @id;";
             return _db.QueryFirstOrDefault<ArchivePost>(sql, new { id });
         }
 
         internal void Delete(int id)
         {
-
+            string sql = @"
+            DELETE
+            FROM archivePosts
+            WHERE id = @id
+            LIMIT 1";
+            _db.Execute(sql, new { id });
         }
     }
 }
