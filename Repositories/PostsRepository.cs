@@ -73,12 +73,24 @@ namespace sqwuakServer.Repositories
 
         internal void Remove(int id)
         {
-            throw new NotImplementedException();
+            string sql = "DELETE FROM posts WHERE id = @id LIMIT 1";
+            _db.Execute(sql, new { id });
         }
 
         internal IEnumerable<Post> GetByOwnerId(string id)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            SELECT
+            post.*,
+            prof.*
+            FROM posts post
+            JOIN profiles pro ON post.creatorId = prof.id";
+            return _db.Query<Post, Profile, Post>(sql, (posts, profile) =>
+            {
+                posts.Creator = profile;
+                return posts;
+            }
+            , new { id }, splitOn: "id");
         }
     }
 }
