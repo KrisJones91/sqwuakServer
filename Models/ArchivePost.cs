@@ -1,6 +1,6 @@
 namespace sqwuakServer.Models
 {
-    public class PostArchive
+    public class ArchivePost
     {
         public int Id { get; set; }
         public string CreatorId { get; set; }
