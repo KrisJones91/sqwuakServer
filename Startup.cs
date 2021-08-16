@@ -1,4 +1,4 @@
- using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -39,9 +39,24 @@ namespace sqwuakServer
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "sqwuakServer", Version = "v1" });
             });
             services.AddScoped<IDbConnection>(x => CreateDbConnection());
-            
+
             services.AddScoped<AccountsRepository>();
             services.AddScoped<AccountService>();
+
+            //Services
+            services.AddTransient<PostsService>();
+            services.AddTransient<ArchivesService>();
+            services.AddTransient<CommentsService>();
+            services.AddTransient<ProfilesService>();
+            services.AddTransient<ArchivesPostsService>();
+
+            //Repos
+            services.AddTransient<PostsRepository>();
+            services.AddTransient<ArchivesRepository>();
+            services.AddTransient<CommentsRepository>();
+            services.AddTransient<ProfilesRepository>();
+            services.AddTransient<ArchivesPostsRepository>();
+
         }
 
         private void ConfigureCors(IServiceCollection services)
@@ -94,10 +109,10 @@ namespace sqwuakServer
             }
 
             app.UseHttpsRedirection();
-            
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            
+
             app.UseRouting();
 
             app.UseAuthentication();
