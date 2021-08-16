@@ -23,7 +23,7 @@ namespace sqwuakServer.Repositories
             FROM posts post
             JOIN profiles prof ON post.CreatorId = prof.id;
             ";
-            return _db.Query<Post, Account, Post>(sql, (post, profile) =>
+            return _db.Query<Post, Profile, Post>(sql, (post, profile) =>
             {
                 post.Creator = profile;
                 return post;
@@ -39,7 +39,7 @@ namespace sqwuakServer.Repositories
             FROM posts post
             JOIN profiles prof ON post.creatorId = prof.id
             WHERE post.id = @id;";
-            return _db.Query<Post, Account, Post>(sql, (post, profile) =>
+            return _db.Query<Post, Profile, Post>(sql, (post, profile) =>
             {
                 post.Creator = profile;
                 return post;
@@ -49,7 +49,13 @@ namespace sqwuakServer.Repositories
 
         internal int Create(Post newPost)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            INSERT INTO Posts
+            (title, description, img, views, shares, saves, creatorId)
+            VALUES
+            (@Name, @Description, @Img, @Views, @Shares, @Saves, @CreatorId);
+            SELECT LAST_INSERT_ID()";
+            return _db.ExecuteScalar<int>(sql, newPost);
         }
 
         internal Post Edit(Post updated)
