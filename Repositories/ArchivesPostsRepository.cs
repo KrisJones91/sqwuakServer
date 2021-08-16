@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using Dapper;
 using sqwuakServer.Models;
 
 namespace sqwuakServer.Repositories
@@ -14,7 +15,13 @@ namespace sqwuakServer.Repositories
 
         internal int Create(ArchivePost newPA)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            INSERT INTO archivePosts
+            (creatorId, archiveId, postId)
+            VALUES
+            (@CreatorId, @ArchiveId, @PostId);
+            SELECT LAST_INSERT_ID();";
+            return _db.ExecuteScalar<int>(sql, newPA);
         }
     }
 }
