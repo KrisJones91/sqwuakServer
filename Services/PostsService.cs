@@ -9,7 +9,7 @@ namespace sqwuakServer.Services
     {
         private readonly PostsRepository _prepo;
         private readonly ArchivesRepository _archrepo;
-        public PostsService(PostsRepository prepo, ArchivesRepository archrepo)
+        public PostsService(ProfilesRepository ps, PostsRepository prepo, ArchivesRepository archrepo)
         {
             _prepo = prepo;
             _archrepo = archrepo;
