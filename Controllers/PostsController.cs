@@ -48,7 +48,7 @@ namespace sqwuakServer.Controllers
             }
         }
 
-        [HttpGet("{id}/comments")]
+        [HttpGet("{postId}/comments")]
         public ActionResult<IEnumerable<Comment>> GetCommentsByPost(int postId)
         {
             try

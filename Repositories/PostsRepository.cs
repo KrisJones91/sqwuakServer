@@ -19,9 +19,9 @@ namespace sqwuakServer.Repositories
             string sql = @"
             SELECT
             post.*,
-            prof.*
+            acc.*
             FROM posts post
-            JOIN profiles prof ON post.CreatorId = prof.id;
+            JOIN accounts acc ON post.CreatorId = acc.id;
             ";
             return _db.Query<Post, Profile, Post>(sql, (post, profile) =>
             {
@@ -35,9 +35,9 @@ namespace sqwuakServer.Repositories
             string sql = @"
             SELECT 
             post.*,
-            prof.*
+            acc.*
             FROM posts post
-            JOIN profiles prof ON post.creatorId = prof.id
+            JOIN accounts acc ON post.creatorId = acc.id
             WHERE post.id = @id;";
             return _db.Query<Post, Profile, Post>(sql, (post, profile) =>
             {
@@ -50,7 +50,7 @@ namespace sqwuakServer.Repositories
         internal int Create(Post newPost)
         {
             string sql = @"
-            INSERT INTO Posts
+            INSERT INTO posts
             (title, description, img, views, shares, saves, creatorId)
             VALUES
             (@Title, @Description, @Img, @Views, @Shares, @Saves, @CreatorId);
@@ -61,7 +61,7 @@ namespace sqwuakServer.Repositories
         internal Post Edit(Post updated)
         {
             string sql = @"
-            UPDATE Posts
+            UPDATE posts
             SET
             title = @Title,
             description = @Description,
@@ -82,9 +82,9 @@ namespace sqwuakServer.Repositories
             string sql = @"
             SELECT
             post.*,
-            prof.*
+            acc.*
             FROM posts post
-            JOIN profiles pro ON post.creatorId = prof.id";
+            JOIN accounts acc ON post.creatorId = acc.id";
             return _db.Query<Post, Profile, Post>(sql, (posts, profile) =>
             {
                 posts.Creator = profile;
@@ -98,9 +98,9 @@ namespace sqwuakServer.Repositories
             string sql = @"
              SELECT
              post.*,
-             prof.*
+             acc.*
              FROM posts post
-             JOIN profiles prof ON post.creatorId = prof.id
+             JOIN accounts acc ON post.creatorId = acc.id
              ";
             return _db.Query<Post, Profile, Post>(sql, (posts, profile) =>
             {
@@ -116,10 +116,10 @@ namespace sqwuakServer.Repositories
             SELECT
             post.*,
             ap.id as ArchPostId,
-            prof.*
+            acc.*
             FROM archposts ap
             JOIN posts post ON post.id = ap.postId
-            JOIN profiles prof ON post.creatorId = prof.id
+            JOIN accounts acc ON post.creatorId = acc.id
             WHERE archiveId = @id
             ";
             return _db.Query<ArchPostModel, Profile, ArchPostModel>(sql, (post, profile) =>

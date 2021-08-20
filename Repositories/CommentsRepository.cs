@@ -19,21 +19,21 @@ namespace sqwuakServer.Repositories
             string sql = @"
             SELECT
             com.*,
-            prof.*
+            acc.*
             FROM comments com
-            JOIN profiles prof ON com.CreatorId = prof.id;
+            JOIN accounts acc ON com.creatorId = acc.id
             WHERE com.postId = @id;
             ";
             return _db.Query<Comment, Profile, Comment>(sql, (comment, profile) =>
             {
                 comment.Creator = profile;
                 return comment;
-            }, splitOn: "id");
+            }, new { id }, splitOn: "id");
         }
         internal int Create(Comment newComment)
         {
             string sql = @"
-            INSERT INTO Posts
+            INSERT INTO comments
             (body, likes, postId, creatorId)
             VALUES
             (@Body, @likes, @PostId, @CreatorId);
@@ -46,9 +46,9 @@ namespace sqwuakServer.Repositories
             string sql = @"
             SELECT 
             com.*,
-            prof.*
+            acc.*
             FROM comments com
-            JOIN profiles prof ON com.creatorId = prof.id
+            JOIN accounts acc ON com.creatorId = acc.id
             WHERE com.id = @id;";
             return _db.Query<Comment, Profile, Comment>(sql, (comment, profile) =>
             {
@@ -62,7 +62,7 @@ namespace sqwuakServer.Repositories
         internal object Edit(Comment updated)
         {
             string sql = @"
-            UPDATE Comments
+            UPDATE comments
             SET
             body = @Body
             WHERE id = @Id;";
