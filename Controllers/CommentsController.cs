@@ -19,19 +19,6 @@ namespace sqwuakServer.Controllers
             _cs = cs;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Comment>> Get()
-        {
-            try
-            {
-                return Ok(_cs.GetComments());
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
         [HttpGet("{id}")]
         public ActionResult<Comment> GetResult(int id)
         {

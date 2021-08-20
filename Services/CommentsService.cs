@@ -12,9 +12,9 @@ namespace sqwuakServer.Services
         {
             _crepo = crepo;
         }
-        public IEnumerable<Comment> GetComments()
+        public IEnumerable<Comment> GetCommentsByPostId(int id)
         {
-            IEnumerable<Comment> comments = _crepo.GetAllComments();
+            IEnumerable<Comment> comments = _crepo.GetAllCommentsByPostId(id);
             return comments;
         }
         internal Comment GetCommentsById(int id)
@@ -49,6 +49,7 @@ namespace sqwuakServer.Services
             _crepo.Delete(id);
             return "Comment Successfully Deleted";
         }
+
 
     }
 }

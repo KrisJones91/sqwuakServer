@@ -14,9 +14,12 @@ namespace sqwuakServer.Controllers
     public class PostsController : ControllerBase
     {
         private readonly PostsService _ps;
-        public PostsController(PostsService ps)
+        private readonly CommentsService _cs;
+
+        public PostsController(PostsService ps, CommentsService cs)
         {
             _ps = ps;
+            _cs = cs;
         }
 
         [HttpGet]
@@ -44,6 +47,20 @@ namespace sqwuakServer.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("{id}/comments")]
+        public ActionResult<IEnumerable<Comment>> GetCommentsByPost(int postId)
+        {
+            try
+            {
+                return Ok(_cs.GetCommentsByPostId(postId));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
 
         [HttpPost]
         [Authorize]

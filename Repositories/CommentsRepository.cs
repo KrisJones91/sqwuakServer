@@ -1,34 +1,81 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Dapper;
 using sqwuakServer.Models;
 
 namespace sqwuakServer.Repositories
 {
     public class CommentsRepository
     {
-        internal IEnumerable<Comment> GetAllComments()
+        private readonly IDbConnection _db;
+        public CommentsRepository(IDbConnection db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
-
+        internal IEnumerable<Comment> GetAllCommentsByPostId(int id)
+        {
+            string sql = @"
+            SELECT
+            com.*,
+            prof.*
+            FROM comments com
+            JOIN profiles prof ON com.CreatorId = prof.id;
+            WHERE com.postId = @id;
+            ";
+            return _db.Query<Comment, Profile, Comment>(sql, (comment, profile) =>
+            {
+                comment.Creator = profile;
+                return comment;
+            }, splitOn: "id");
+        }
         internal int Create(Comment newComment)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            INSERT INTO Posts
+            (body, likes, postId, creatorId)
+            VALUES
+            (@Body, @likes, @PostId, @CreatorId);
+            SELECT LAST_INSERT_ID()";
+            return _db.ExecuteScalar<int>(sql, newComment);
         }
 
         internal Comment GetById(int id)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            SELECT 
+            com.*,
+            prof.*
+            FROM comments com
+            JOIN profiles prof ON com.creatorId = prof.id
+            WHERE com.id = @id;";
+            return _db.Query<Comment, Profile, Comment>(sql, (comment, profile) =>
+            {
+                comment.Creator = profile;
+                return comment;
+
+            }, new { id }, splitOn: "id").FirstOrDefault();
         }
+
 
         internal object Edit(Comment updated)
         {
-            throw new NotImplementedException();
+            string sql = @"
+            UPDATE Comments
+            SET
+            body = @Body
+            WHERE id = @Id;";
+            _db.Execute(sql, updated);
+            return updated;
         }
+
 
         internal void Delete(int id)
         {
-            throw new NotImplementedException();
+            string sql = "DELETE FROM comments WHERE id = @id LIMIT 1";
+            _db.Execute(sql, new { id });
+
         }
     }
 }
