@@ -33,7 +33,7 @@ namespace sqwuakServer.Repositories
         internal int Create(Archive newArchive)
         {
             string sql = @"
-            INSERT INTO Archives
+            INSERT INTO archives
             (Name, isPrivate, creatorId)
             VALUES
             (@Name, @IsPrivate, @CreatorId);
@@ -44,7 +44,7 @@ namespace sqwuakServer.Repositories
         internal Archive Edit(Archive updated)
         {
             string sql = @"
-            UPDATE Archives
+            UPDATE archives
             SET
             name = @Name,
             isPrivate = @IsPrivate
