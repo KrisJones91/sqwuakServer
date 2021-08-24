@@ -33,6 +33,9 @@ namespace sqwuakServer.Repositories
         internal Post GetById(int id)
         {
             string sql = @"
+            UPDATE posts post
+            SET post.views = post.views + 1
+            WHERE post.id = @id;
             SELECT 
             post.*,
             acc.*

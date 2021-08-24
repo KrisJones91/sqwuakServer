@@ -20,13 +20,13 @@ namespace sqwuakServer.Repositories
             string sql = @"
             SELECT
             archs.*,
-            prof.*
+            acc.*
             FROM archives archs
-            JOIN profiles prof ON archs.creatorId = prof.id
+            JOIN accounts acc ON archs.creatorId = acc.id
             WHERE archs.id = @id;";
-            return _db.Query<Archive, Profile, Archive>(sql, (archive, profile) =>
+            return _db.Query<Archive, Account, Archive>(sql, (archive, account) =>
             {
-                archive.Creator = profile;
+                archive.Creator = account;
                 return archive;
             }, new { id }, splitOn: "id").FirstOrDefault();
         }
@@ -64,11 +64,11 @@ namespace sqwuakServer.Repositories
             string sql = @"
             SELECT 
             arch.*,
-            pro.* 
+            acc.* 
             FROM archives arch
-            JOIN profiles pro ON arch.creatorId = pro.id
+            JOIN account acc ON arch.creatorId = acc.id
             WHERE arch.creatorId = @id;";
-            return _db.Query<Archive, Profile, Archive>(sql, (archive, profile) => { archive.Creator = profile; return archive; }, new { id }, splitOn: "id");
+            return _db.Query<Archive, Account, Archive>(sql, (archive, account) => { archive.Creator = account; return archive; }, new { id }, splitOn: "id");
         }
 
 
