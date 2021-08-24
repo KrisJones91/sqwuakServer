@@ -88,14 +88,16 @@ namespace sqwuakServer.Repositories
             acc.*
             FROM posts post
             JOIN accounts acc ON post.creatorId = acc.id";
-            return _db.Query<Post, Profile, Post>(sql, (posts, profile) =>
+            return _db.Query<Post, Account, Post>(sql, (posts, account) =>
             {
-                posts.Creator = profile;
+                posts.Creator = account;
                 return posts;
             }
             , new { id }, splitOn: "id");
         }
 
+        //Might be able to route this one from it's controller to the function above
+        //Not sure I will even use this
         internal IEnumerable<Post> GetPostsProfileById(string id)
         {
             string sql = @"
@@ -105,9 +107,9 @@ namespace sqwuakServer.Repositories
              FROM posts post
              JOIN accounts acc ON post.creatorId = acc.id
              ";
-            return _db.Query<Post, Profile, Post>(sql, (posts, profile) =>
+            return _db.Query<Post, Account, Post>(sql, (posts, account) =>
             {
-                posts.Creator = profile;
+                posts.Creator = account;
                 return posts;
             }
               , new { id }, splitOn: "id");
