@@ -87,11 +87,12 @@ namespace sqwuakServer.Repositories
             post.*,
             acc.*
             FROM posts post
-            JOIN accounts acc ON post.creatorId = acc.id";
-            return _db.Query<Post, Account, Post>(sql, (posts, account) =>
+            JOIN accounts acc ON post.creatorId = acc.id
+            WHERE post.creatorId = @id;";
+            return _db.Query<Post, Account, Post>(sql, (post, account) =>
             {
-                posts.Creator = account;
-                return posts;
+                post.Creator = account;
+                return post;
             }
             , new { id }, splitOn: "id");
         }

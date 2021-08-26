@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using sqwuakServer.Models;
 using sqwuakServer.Repositories;
 
@@ -65,7 +66,7 @@ namespace sqwuakServer.Services
         //Get everyone's profile
         internal IEnumerable<Post> GetPostsByProfileId(string id)
         {
-            return _prepo.GetPostsProfileById(id);
+            return _prepo.GetPostsProfileById(id).ToList().FindAll(p => p.CreatorId == id);
         }
 
         //get posts inside archives
