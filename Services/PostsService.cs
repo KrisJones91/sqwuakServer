@@ -57,16 +57,16 @@ namespace sqwuakServer.Services
             return "Successfully Deleted";
         }
 
-        //Get ACTIVE users posts
+        // Accounts
         internal IEnumerable<Post> GetPostsByAccountId(string id)
         {
             return _prepo.GetByOwnerId(id);
         }
 
-        //Get everyone's profile
+        // Profiles
         internal IEnumerable<Post> GetPostsByProfileId(string id)
         {
-            return _prepo.GetPostsProfileById(id).ToList().FindAll(p => p.CreatorId == id);
+            return _prepo.GetPostsByProfileId(id).ToList().FindAll(p => p.CreatorId == id);
         }
 
         //get posts inside archives

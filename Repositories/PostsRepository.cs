@@ -80,6 +80,7 @@ namespace sqwuakServer.Repositories
             _db.Execute(sql, new { id });
         }
 
+        // Accounts Controller
         internal IEnumerable<Post> GetByOwnerId(string id)
         {
             string sql = @"
@@ -97,9 +98,8 @@ namespace sqwuakServer.Repositories
             , new { id }, splitOn: "id");
         }
 
-        //Might be able to route this one from it's controller to the function above
-        //Not sure I will even use this
-        internal IEnumerable<Post> GetPostsProfileById(string id)
+        //Profiles Controller
+        internal IEnumerable<Post> GetPostsByProfileId(string id)
         {
             string sql = @"
              SELECT
@@ -128,9 +128,9 @@ namespace sqwuakServer.Repositories
             JOIN accounts acc ON post.creatorId = acc.id
             WHERE archiveId = @id
             ";
-            return _db.Query<ArchPostModel, Profile, ArchPostModel>(sql, (post, profile) =>
+            return _db.Query<ArchPostModel, Account, ArchPostModel>(sql, (post, account) =>
             {
-                post.Creator = profile;
+                post.Creator = account;
                 return post;
             }, new { id }, splitOn: "id");
         }
