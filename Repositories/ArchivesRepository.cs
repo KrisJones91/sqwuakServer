@@ -77,13 +77,13 @@ namespace sqwuakServer.Repositories
             string sql = @"
              SELECT
              archs.*,
-             pro.*
+             acc.*
              FROM archives archs
-             JOIN profiles pro ON archs.creatorId = pro.id
+             JOIN accounts acc ON archs.creatorId = acc.id
              ";
-            return _db.Query<Archive, Profile, Archive>(sql, (archives, profile) =>
+            return _db.Query<Archive, Account, Archive>(sql, (archives, account) =>
             {
-                archives.Creator = profile;
+                archives.Creator = account;
                 return archives;
             }
                 , new { id }, splitOn: "id");

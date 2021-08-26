@@ -56,7 +56,7 @@ namespace sqwuakServer.Controllers
         {
             try
             {
-                IEnumerable<Archive> archives = _archs.GetByProfileId(id);
+                IEnumerable<Archive> archives = _archs.GetArchsByProfileId(id);
                 return Ok(archives);
             }
             catch (Exception e)

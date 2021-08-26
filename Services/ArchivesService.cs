@@ -49,7 +49,7 @@ namespace sqwuakServer.Services
             return "Successfully Deleted";
         }
 
-        internal IEnumerable<Archive> GetByProfileId(string id)
+        internal IEnumerable<Archive> GetArchsByProfileId(string id)
         {
             return _arepo.GetArchivesByProfileId(id).ToList().FindAll(archs => archs.isPrivate == false && archs.CreatorId == id);
         }
