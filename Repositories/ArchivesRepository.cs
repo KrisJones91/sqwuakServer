@@ -66,7 +66,7 @@ namespace sqwuakServer.Repositories
             arch.*,
             acc.* 
             FROM archives arch
-            JOIN account acc ON arch.creatorId = acc.id
+            JOIN accounts acc ON arch.creatorId = acc.id
             WHERE arch.creatorId = @id;";
             return _db.Query<Archive, Account, Archive>(sql, (archive, account) => { archive.Creator = account; return archive; }, new { id }, splitOn: "id");
         }
