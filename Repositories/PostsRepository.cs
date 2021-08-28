@@ -30,6 +30,9 @@ namespace sqwuakServer.Repositories
             }, splitOn: "id");
         }
 
+        //             UPDATE posts post
+        // SET post.views = post.views + 1
+        // SET post.views = post.views - 1
         internal Post GetById(int id)
         {
             string sql = @"
