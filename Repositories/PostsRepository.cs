@@ -122,6 +122,9 @@ namespace sqwuakServer.Repositories
         internal IEnumerable<ArchPostModel> GetPostsByArchivesId(int id)
         {
             string sql = @"
+            UPDATE posts post
+            SET posts.saves = posts.saves + 1
+            WHERE post.id = @id;
             SELECT
             post.*,
             ap.id as ArchPostId,
