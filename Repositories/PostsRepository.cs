@@ -126,7 +126,7 @@ namespace sqwuakServer.Repositories
             post.*,
             ap.id as ArchPostId,
             acc.*
-            FROM archposts ap
+            FROM archivePosts ap
             JOIN posts post ON post.id = ap.postId
             JOIN accounts acc ON post.creatorId = acc.id
             WHERE archiveId = @id
