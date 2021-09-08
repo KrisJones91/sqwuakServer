@@ -123,7 +123,7 @@ namespace sqwuakServer.Repositories
         {
             string sql = @"
             UPDATE posts post
-            SET posts.saves = posts.saves + 1
+            SET post.saves = post.saves + 1
             WHERE post.id = @id;
             SELECT
             post.*,
